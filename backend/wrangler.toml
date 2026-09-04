@@ -1,0 +1,30 @@
+name = "soule-menu-backend"
+main = "src/index.ts"
+compatibility_date = "2026-08-01"
+
+# Public config only — never put secrets here.
+[vars]
+ALLOWED_ORIGIN = "https://REPLACE_WITH_YOUR_GITHUB_PAGES_URL"
+# POS_PROVIDER selects which adapter to use. "mock" (default) makes every
+# order "succeed" without calling any real POS — safe to leave as-is until
+# you've picked and configured a billing system.
+POS_PROVIDER = "mock"
+POS_API_BASE_URL = ""
+
+# Once you pick a POS and get credentials, set these as secrets (never as
+# plain vars): wrangler secret put POS_APP_KEY / POS_APP_SECRET / etc.
+# The exact secret names depend on which adapter you implement — see
+# src/integrations/pos/README.md
+#
+# Also required for the admin page (admin.html):
+#   wrangler secret put ADMIN_PASSWORD
+
+# D1 database — create with: wrangler d1 create soule_menu_db
+[[d1_databases]]
+binding = "DB"
+database_name = "soule_menu_db"
+database_id = "REPLACE_AFTER_RUNNING_WRANGLER_D1_CREATE"
+
+# Retry sweep for orders whose POS push failed/timed out
+[triggers]
+crons = ["*/2 * * * *"]
