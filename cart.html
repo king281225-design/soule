@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Your Order — Soulé</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Jost:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="page">
+    <h1 class="page-title font-display">Your Order</h1>
+
+    <div id="cart-lines"></div>
+
+    <div id="cart-empty" class="empty-state" style="display:none">
+      <p>Your cart is empty.</p>
+      <a href="menu.html" class="btn-primary" style="max-width:200px;margin:16px auto 0;">Browse Menu</a>
+    </div>
+
+    <div id="cart-summary" style="display:none">
+      <div class="summary-row">
+        <span>Subtotal</span>
+        <span id="sum-subtotal"></span>
+      </div>
+      <div class="summary-row">
+        <span>Taxes</span>
+        <span id="sum-tax"></span>
+      </div>
+      <div class="summary-row total">
+        <span>Grand Total</span>
+        <span id="sum-total"></span>
+      </div>
+
+      <div class="checkout-bar">
+        <a href="checkout.html" class="btn-primary" id="checkout-link">Continue to Checkout</a>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/data.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/cart-page.js"></script>
+</body>
+</html>

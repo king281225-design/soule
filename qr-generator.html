@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Table QR Generator — Soulé</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Jost:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    .wrap { max-width: 420px; margin: 0 auto; padding: 24px 16px 60px; }
+    .field { margin-bottom: 14px; }
+    .field label { display: block; font-size: 13px; margin-bottom: 4px; color: var(--color-text-muted); }
+    .field input {
+      width: 100%; padding: 10px 12px; border: 1px solid var(--color-border);
+      border-radius: 10px; font-size: 14px; background: var(--color-surface);
+    }
+    .qr-card {
+      margin-top: 20px; text-align: center; background: var(--color-surface);
+      border: 1px solid var(--color-border); border-radius: 16px; padding: 20px;
+    }
+    .qr-card p { font-size: 13px; color: var(--color-text-muted); word-break: break-all; }
+    #qr-canvas { margin: 0 auto; }
+    .download-link {
+      display: inline-block; margin-top: 12px; font-size: 13px;
+      color: var(--color-primary); text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1 class="font-display" style="font-size:22px;">Table QR Generator</h1>
+    <p style="font-size:13px; color: var(--color-text-muted);">
+      Generates a QR code that opens the digital menu with the table pre-selected.
+      Run this locally — nothing is uploaded anywhere.
+    </p>
+
+    <div class="field">
+      <label for="base-url">Menu site URL (where you deploy this site)</label>
+      <input id="base-url" type="text" value="https://REPLACE_WITH_YOUR_SITE_URL/menu.html" />
+    </div>
+
+    <div class="field">
+      <label for="table-label">Table number / label</label>
+      <input id="table-label" type="text" placeholder="e.g. 12" value="12" />
+    </div>
+
+    <button class="btn-primary" id="generate-btn" type="button">Generate QR Code</button>
+
+    <div class="qr-card">
+      <div id="qr-canvas"></div>
+      <p id="qr-url"></p>
+      <a id="download-link" class="download-link" download="table-qr.png">Download PNG</a>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <script>
+    const canvas = document.getElementById("qr-canvas");
+    let qr = null;
+
+    function generate() {
+      const base = document.getElementById("base-url").value.trim();
+      const table = document.getElementById("table-label").value.trim();
+      if (!base || !table) return;
+
+      // Prefer an opaque token in production (see js/table.js note) —
+      // this simple generator uses the table label directly for clarity.
+      const url = base + "?t=" + encodeURIComponent(table);
+
+      canvas.innerHTML = "";
+      qr = new QRCode(canvas, { text: url, width: 220, height: 220 });
+
+      document.getElementById("qr-url").textContent = url;
+
+      // QRCode.js renders to a canvas or img; grab whichever it produced.
+      setTimeout(function () {
+        const img = canvas.querySelector("img") || canvas.querySelector("canvas");
+        const dataUrl = img.tagName === "CANVAS" ? img.toDataURL("image/png") : img.src;
+        document.getElementById("download-link").href = dataUrl;
+        document.getElementById("download-link").download = "table-" + table + "-qr.png";
+      }, 100);
+    }
+
+    document.getElementById("generate-btn").addEventListener("click", generate);
+    generate();
+  </script>
+</body>
+</html>

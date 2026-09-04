@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Soulé — Menu</title>
+  <meta name="description" content="Soulé digital menu" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Jost:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="page">
+    <div class="hero">
+      <img id="hero-img" src="" alt="" />
+      <div class="hero-content">
+        <span id="table-badge" class="table-badge" style="display:none"></span>
+        <img src="assets/soule-logo.png" alt="Soulé logo" style="height:56px; width:auto; margin-bottom:6px;" />
+        <p id="restaurant-tagline"></p>
+      </div>
+    </div>
+
+    <div style="padding: 16px;">
+      <a id="explore-link" href="menu.html" class="btn-primary">Explore Menu</a>
+    </div>
+
+    <div class="section">
+      <h2>Best Sellers</h2>
+      <div id="bestsellers" class="scroll-row"></div>
+    </div>
+
+    <div class="section">
+      <h2>Chef's Specials</h2>
+      <div id="specials" class="scroll-row"></div>
+    </div>
+
+    <div class="info-block">
+      <p class="name" id="info-name"></p>
+      <p id="info-address"></p>
+      <p id="info-hours"></p>
+      <p>
+        <a id="info-phone" href="#"></a>
+        &nbsp;·&nbsp;
+        <a id="info-directions" href="#" target="_blank" rel="noreferrer">Get Directions</a>
+      </p>
+    </div>
+  </div>
+
+  <script src="js/data.js"></script>
+  <script src="js/table.js"></script>
+  <script src="js/home.js"></script>
+</body>
+</html>
